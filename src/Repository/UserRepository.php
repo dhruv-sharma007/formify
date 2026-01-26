@@ -41,7 +41,7 @@ final class UserRepository
   public function findByEmail(string $email): ?array
   {
     $stmt = $this->db->prepare(
-      'SELECT name, email, isVerified FROM users WHERE email = :email'
+      'SELECT id, name, email, password, isVerified FROM users WHERE email = :email'
     );
 
     $stmt->execute([

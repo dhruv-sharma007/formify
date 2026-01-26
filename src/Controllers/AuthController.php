@@ -46,9 +46,14 @@ final class AuthController
     //   throw new \Exception("user is not verified");
     // }
 
+    // Session already started in bootstrap.php
+    // Regenerate session ID for security
     session_regenerate_id(true);
-    $_SESSION['user_id'] = $user['id'];
+
+    // Set session variables
+    $_SESSION['user_id'] = (int) $user['id'];
     $_SESSION['logged_in'] = true;
+    $_SESSION['email'] = $user['email'];
 
     return true;
   }
@@ -113,6 +118,6 @@ final class AuthController
   // TODO: implement verify user when user click verify account in mail inbox
   public function verifyUser()
   {
-
+    
   }
 }

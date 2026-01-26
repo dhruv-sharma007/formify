@@ -1,5 +1,10 @@
 <?php
+session_start();
 $pageTitle = "Build Forms Effortlessly";
+$isLoggedIn = false;
+if (isset($_SESSION['logged_in'])) {
+    $isLoggedIn = true;
+}
 require_once __DIR__ . '/layouts/header.php';
 ?>
 
@@ -36,7 +41,12 @@ require_once __DIR__ . '/layouts/header.php';
         <div class="flex flex-col sm:flex-row justify-center gap-4 animate-slide-up-delay-2">
             <a href="register.php"
                 class="btn btn-primary btn-lg border-none bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-blue-500/40 text-white transition-all transform hover:scale-105">
-                Create Free Account
+
+                <?php if ($isLoggedIn): ?>
+                    Dashboard
+                <?php else: ?>
+                    Create Free Account
+                <?php endif; ?>
             </a>
             <a href="login.php"
                 class="btn btn-outline btn-lg text-white border-white/20 hover:bg-white/10 hover:border-white/40 transition-all">

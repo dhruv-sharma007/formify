@@ -14,7 +14,7 @@ final class FormRepository
     $this->db = Connection::get();
   }
 
-  public function getAll(): array
+  private function getAll(): array
   {
     // get all forms
     $stmt = $this->db->query('SELECT id, title, is_published FROM forms ORDER BY created_at DESC');
@@ -51,7 +51,7 @@ final class FormRepository
    * @return int The created form ID
    * @throws \Exception If transaction fails
    */
-  public function createFormWithQuestions(int $userId, string $title, ?string $description, array $questions, bool $isPublished): int
+  public function createFormWithQuestions(int $userId, string $title, ?string $description, array $questions, bool $isPublished = false): int
   {
     try {
       // Start transaction
@@ -59,15 +59,15 @@ final class FormRepository
 
       // 1. Insert form
       $formStmt = $this->db->prepare(
-        'INSERT INTO forms (user_id, title, description, is_published, created_at, updated_at, is_published)
-         VALUES (:user_id, :title, :description, 0, NOW(), NOW(), :is_published)'
+        'INSERT INTO forms (user_id, title, description, is_published, created_at, updated_at)
+         VALUES (:user_id, :title, :description, :is_published, NOW(), NOW())'
       );
 
       $formStmt->execute([
         'user_id' => $userId,
         'title' => $title,
         'description' => $description,
-        'is_published' => $isPublished
+        'is_published' => $isPublished ? 1 : 0
       ]);
 
       $formId = (int) $this->db->lastInsertId();
@@ -137,7 +137,7 @@ final class FormRepository
    *  }
    * ]
    */
-  
+
   public function getFormsByUserId(string $userId): array
   {
     $stmt = $this->db->prepare(

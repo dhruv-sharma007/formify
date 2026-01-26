@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addQuestion();
   });
 
-  function addQuestion() {
+  function addQuestion() { 
     const index = questionCount++;
     const questionEl = document.createElement('div');
     questionEl.className = 'card bg-base-100 shadow p-6 mb-4 border border-base-200 question-block';

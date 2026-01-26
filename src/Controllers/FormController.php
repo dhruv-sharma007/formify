@@ -18,23 +18,38 @@ final class FormController
   /**
    * Create a form with questions and options
    * 
-   * @param int $userId The user creating the form
    * @param string $title Form title
    * @param string $description Form description
    * @param array $questions Array of questions with their options
    * @return int The created form ID
    * @throws \Exception If creation fails
    */
-  public function createForm(string $title, string $description, array $questions, bool $isPublished): int
+  public function createForm(string $title, string $description, array $questions): int
   {
-    // Validate input
-    $userId = $_SESSION["user_id"];
-    if (!$userId) {
-      throw new \Exception("Unauthorize request");
+    // Check authentication (session already started in bootstrap)
+    if (!isset($_SESSION['user_id'])) {
+      throw new \Exception('User must be logged in to create a form');
     }
+
+    $userId = (int) $_SESSION['user_id'];
+
+    // Validate input
     $this->validateFormInput($userId, $title, $description, $questions);
 
-    return $this->formRepository->createFormWithQuestions($userId, $title, $description, $questions, $isPublished);
+    return $this->formRepository->createFormWithQuestions($userId, $title, $description, $questions, true);
+  }
+
+  public function getForms($userId): array
+  {
+    return $this->formRepository->getFormsByUserId($userId);
+  }
+
+  public function getForm(int $formId)
+  {
+    if ($formId <= 0) {
+      throw new \InvalidArgumentException('Invalid form ID');
+    }
+    return $this->formRepository->getFormByIdWithQuestionsAndOptions($formId);
   }
 
   /**
@@ -157,4 +172,6 @@ final class FormController
       }
     }
   }
+
+
 }

@@ -1,5 +1,6 @@
 <?php
-session_start();
+// Session already started in bootstrap.php
+require_once __DIR__ . "/../src/bootstrap.php";
 $isLoggedIn;
 
 if (!isset($_SESSION['logged_in'])) {
