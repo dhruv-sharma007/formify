@@ -25,12 +25,16 @@ final class FormController
    * @return int The created form ID
    * @throws \Exception If creation fails
    */
-  public function createForm(int $userId, string $title, string $description, array $questions): int
+  public function createForm(string $title, string $description, array $questions, bool $isPublished): int
   {
     // Validate input
+    $userId = $_SESSION["user_id"];
+    if (!$userId) {
+      throw new \Exception("Unauthorize request");
+    }
     $this->validateFormInput($userId, $title, $description, $questions);
 
-    return $this->formRepository->createFormWithQuestions($userId, $title, $description, $questions);
+    return $this->formRepository->createFormWithQuestions($userId, $title, $description, $questions, $isPublished);
   }
 
   /**

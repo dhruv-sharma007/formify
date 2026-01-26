@@ -1,6 +1,7 @@
 <?php
 
 use Dhruv\Project\Controllers\AuthController;
+use Dhruv\Project\Controllers\FormController;
 require_once __DIR__ . '/../src/bootstrap.php';
 
 $action = $_GET['action'] ?? '';
@@ -41,14 +42,12 @@ try {
         case 'submit-form':
             $title = $_POST['title'];
             $description = $_POST['description'];
-            //TODO: add publish button 
+
+            //TODO: add publish button and functionality
             $isPublished = true;
-
             $questions = $_POST['questions'];
-
-            echo '<pre>';
-            echo json_encode($_POST, JSON_PRETTY_PRINT);
-            echo '</pre>';
+            (new FormController())->createForm($title, $description, $questions, true);
+            header('Location: dashboard.php');
             // print_r($);
             break;
 

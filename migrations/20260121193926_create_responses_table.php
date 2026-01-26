@@ -23,6 +23,8 @@ final class CreateResponsesTable extends AbstractMigration
             ->addColumn("form_id", "integer", ["signed" => false])
             ->addColumn("ip_address", "string", ["limit" => 150])
             ->addColumn("user_agent", "string")
+            ->addForeignKey("form_id", "forms", "id", ["delete" => "CASCADE"])
+            ->addIndex(["form_id"])
             ->addTimestamps()
             ->create();
     }
