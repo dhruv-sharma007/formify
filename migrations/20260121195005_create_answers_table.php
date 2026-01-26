@@ -23,9 +23,11 @@ final class CreateAnswersTable extends AbstractMigration
             ->addColumn("response_id", "integer", ["signed" => false, "null" => false])
             ->addColumn("question_id", "integer", ["signed" => false, "null" => false])
             ->addColumn("answerText", "string", ["signed" => false, "null" => false])
+            ->addColumn("option_id", "integer", ["signed" => false, "null" => false])
             ->addForeignKey("response_id", "responses", ['id'])
             ->addForeignKey("question_id", "questions", ['id'])
-            ->addIndex(["response_id", "question_id"])
+            ->addForeignKey("option_id", "options", ["id"])
+            ->addIndex(["response_id", "question_id", "option_id"])
             ->create();
     }
 }

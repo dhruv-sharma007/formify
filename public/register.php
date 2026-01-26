@@ -20,10 +20,9 @@ if (isset($_SESSION["logged_in"])) {
       <h2 class="text-xl font-semibold text-center">Register</h2>
 
       <form class="space-y-4" method="post" action="action.php?action=register">
-        <input type="text" name="name" placeholder="Name" class="input input-bordered w-full" />
-        <input type="email" name="email" placeholder="Email" class="input input-bordered w-full" />
-        <input type="password" name="password" placeholder="Password" class="input input-bordered w-full" />
-
+        <input type="text" name="name" required placeholder="Name" class="input input-bordered w-full" />
+        <input type="email" name="email" required placeholder="Email" class="input input-bordered w-full" />
+        <input type="password" name="password" required placeholder="Password" class="input input-bordered w-full" />
         <button class="btn btn-primary w-full">Register</button>
       </form>
 

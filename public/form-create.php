@@ -7,7 +7,7 @@ require_once __DIR__ . '/layouts/header.php';
 <main class="max-w-4xl mx-auto p-6 space-y-6">
 
   <!-- Form Start -->
-  <form action="submit.php" method="POST">
+  <form method="post" action="action.php?action=submit-form">
       
       <div class="card bg-base-100 shadow mb-6 border-t-4 border-primary">
         <div class="card-body">

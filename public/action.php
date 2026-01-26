@@ -45,6 +45,11 @@ try {
             $isPublished = true;
 
             $questions = $_POST['questions'];
+
+            echo '<pre>';
+            echo json_encode($_POST, JSON_PRETTY_PRINT);
+            echo '</pre>';
+            // print_r($);
             break;
 
     }
